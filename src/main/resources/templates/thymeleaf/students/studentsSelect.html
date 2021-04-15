@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        function searchStudent() {
+            let studentId = document.getElementById('stuId').value;
+            console.log(studentId);
+
+            let url = "/students/getStudent?studentId="+studentId;
+
+            xmlhttp =new XMLHttpRequest();
+            xmlhttp.onreadystatechange=checkResult; //响应函数
+            xmlhttp.open("GET",url,true);   //设置访问的页面
+            xmlhttp.send(null);  //执行访问
+        }
+
+        function checkResult() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                let result = xmlhttp.responseText;
+                if (result != null && result != '') {
+                    alert(result);
+                } else {
+                    alert('输入的用户id不存在');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:replace="~{fragments/header::header}"></div>
+<h3 th:text="${studentsModel.title}"></h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>课程</td>
+        <td>成绩</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${studentsModel.studentsList.size()} eq 0">
+        <td colspan="5">没有学生信息！</td>
+    </tr>
+    <tr th:each="students:${studentsModel.studentsList}">
+        <td th:text="${students.sno}"></td>
+        <td th:text="${students.sname}"></td>
+        <td th:text="${students.ssex}"></td>
+        <td th:text="${students.sbirthday}"></td>
+        <td th:text="${students.sclass}"></td>
+    </tr>
+
+    学生id:<input type="text" id="stuId" name="studentId">
+    <button onclick="searchStudent()">查找学生</button>
+    <a href="/"><button class="btn-primary">Back</button></a>
+    </tbody>
+</table>
+
+<div th:replace="~{fragments/footer::footer}"></div>
+</body>
+</html>

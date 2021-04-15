@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koiwaLearning.api.mapper.CoursesMapper">
+
+    <resultMap id = "BaseResultMap" type="com.koiwaLearning.api.domain.Courses">
+        <result column="cno" jdbcType="VARCHAR" property="cno" />
+        <result column="cname" jdbcType="VARCHAR" property="cname" />
+        <result column="tno" jdbcType="VARCHAR" property="tno" />
+    </resultMap>
+
+    <resultMap id = "CourseDetail" type="com.koiwaLearning.api.domain.CourseDetail">
+        <result column="cno" jdbcType="VARCHAR" property="cno" />
+        <result column="cname" jdbcType="VARCHAR" property="cname" />
+        <result column="tno" jdbcType="VARCHAR" property="tno" />
+    </resultMap>
+
+    <select id="getCourses" resultMap="BaseResultMap">
+        SELECT * FROM courses;
+    </select>
+
+    <select id="getCourse" resultMap="CourseDetail" parameterType="string">
+        select * from courses
+        where cno = #{courseId}
+    </select>
+
+
+    <insert id="insertCourses" parameterType="com.koiwaLearning.api.domain.Courses">
+        INSERT INTO courses (
+            cno,cname,tno)
+        VALUES (
+                #{cno},#{cname},#{tno}
+               );
+    </insert>
+
+    <update id="updateCourses" parameterType="com.koiwaLearning.api.domain.Courses">
+        UPDATE courses
+        SET CNAME = #{cname},
+            TNO = #{tno}
+        WHERE   cno = #{cno};
+    </update>
+
+    <delete id="deleteCourses" parameterType="String">
+        DELETE FROM courses
+        WHERE cno = #{cno};
+    </delete>
+
+
+</mapper>

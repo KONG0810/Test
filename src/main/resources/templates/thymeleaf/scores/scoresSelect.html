@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Scores信息</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        function searchScore() {
+            let scoreId = document.getElementById('scoId').value;
+            console.log(scoreId);
+
+            let url = "/scores/getScore?scoreId="+scoreId;
+
+            xmlhttp =new XMLHttpRequest();
+            xmlhttp.onreadystatechange=checkResult; //响应函数
+            xmlhttp.open("GET",url,true);   //设置访问的页面
+            xmlhttp.send(null);  //执行访问
+        }
+
+        function checkResult() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                let result = xmlhttp.responseText;
+                if (result != null && result != '') {
+                    alert(result);
+                } else {
+                    alert('输入的用户id不存在');
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+<div th:replace="~{fragments/header::header}"></div>
+<h3 th:text="${scoresModel.title}"></h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>Sno</td>
+        <td>Cno</td>
+        <td>degree</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${scoresModel.scoresList.size()} eq 0">
+        <td colspan="3">没有scores信息！</td>
+    </tr>
+    <tr th:each="scores:${scoresModel.scoresList}">
+        <td th:text="${scores.sno}"></td>
+        <td th:text="${scores.cno}"></td>
+        <td th:text="${scores.degree}"></td>
+    </tr>
+
+    学生id:<input type="text" id="scoId" name="scoreId">
+    <button onclick="searchScore()">查找学生成績</button>
+    <a href="/"><button class="btn-primary">Back</button></a>
+    </tbody>
+</table>
+
+<div th:replace="~{fragments/footer::footer}"></div>
+</body>
+
+</html>

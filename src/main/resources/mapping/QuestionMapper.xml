@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koiwaLearning.api.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.koiwaLearning.api.domain.Students">
+        <result column="sno" jdbcType="VARCHAR" property="sno" />
+        <result column="sname" jdbcType="VARCHAR" property="sname" />
+        <result column="ssex" jdbcType="VARCHAR" property="ssex" />
+        <result column="sbirthday" jdbcType="VARCHAR" property="sbirthday" />
+        <result column="sclass" jdbcType="VARCHAR" property="sclass" />
+    </resultMap>
+
+
+    <resultMap id = "ScoresMap" type="com.koiwaLearning.api.domain.Scores">
+        <result column="sno" jdbcType="VARCHAR" property="sno" />
+        <result column="cno" jdbcType="VARCHAR" property="cno" />
+        <result column="degree" jdbcType="VARCHAR" property="degree" />
+    </resultMap>
+
+
+    <resultMap id="TeachersMap" type="com.koiwaLearning.api.domain.Teachers">
+        <result column="tno" jdbcType="VARCHAR" property="tno" />
+        <result column="tname" jdbcType="VARCHAR" property="tname" />
+        <result column="tsex" jdbcType="VARCHAR" property="tsex" />
+        <result column="tbirthday" jdbcType="VARCHAR" property="tbirthday" />
+        <result column="prof" jdbcType="VARCHAR" property="prof" />
+        <result column="depart" jdbcType="VARCHAR" property="depart" />
+    </resultMap>
+
+
+    <resultMap id = "CoursesMap" type="com.koiwaLearning.api.domain.Courses">
+        <result column="cno" jdbcType="VARCHAR" property="cno" />
+        <result column="cname" jdbcType="VARCHAR" property="cname" />
+        <result column="tno" jdbcType="VARCHAR" property="tno" />
+    </resultMap>
+
+
+    <resultMap id="Question9Map" type="com.koiwaLearning.api.domain.Question9">
+        <result column="MinBirthday" jdbcType="VARCHAR" property="MinBirthday" />
+        <result column="MaxBirthday" jdbcType="VARCHAR" property="MaxBirthday" />
+    </resultMap>
+
+    <resultMap id="Question11Map" type="com.koiwaLearning.api.domain.Question11">
+        <result column="tname" jdbcType="VARCHAR" property="tname" />
+        <result column="cname" jdbcType="VARCHAR" property="cname" />
+    </resultMap>
+
+
+
+
+    <select id="findQuestionOne" resultMap="BaseResultMap">
+        SELECT sname,ssex,sbirthday FROM students UNION SELECT tname,tsex,tbirthday FROM teachers;
+    </select>
+
+    <select id="findQuestionTwo" resultMap="BaseResultMap">
+        SELECT sname,ssex,sbirthday FROM students WHERE ssex='女' UNION SELECT tname,tsex,tbirthday FROM teachers WHERE tsex='女';
+    </select>
+
+    <select id="findQuestionThree" resultMap="ScoresMap">
+        SELECT s1.* FROM Scores AS s1 INNER JOIN ( SELECT Cno,AVG(Degree) AS aDegree FROM Scores GROUP BY Cno) s2 ON(s1.Cno=s2.Cno AND s2.aDegree > s1.Degree);
+    </select>
+
+    <select id="findQuestionFour" resultMap="TeachersMap">
+        SELECT Tname,Depart FROM Teachers WHERE Tno IN( SELECT Tno FROM Courses);
+    </select>
+
+    <select id="findQuestionFive" resultMap="TeachersMap">
+        SELECT Tname,Depart FROM Teachers WHERE Tno NOT IN( SELECT Tno FROM Courses);
+    </select>
+
+    <select id="findQuestionSix" resultMap="BaseResultMap">
+        SELECT sclass,COUNT(1) AS boyCount FROM students WHERE Ssex='男' GROUP BY sclass HAVING boyCount>=2;
+    </select>
+
+    <select id="findQuestionSeven" resultMap="BaseResultMap">
+        SELECT * FROM students WHERE Sname NOT LIKE '王%';
+    </select>
+
+    <select id="findQuestionEight" resultMap="BaseResultMap">
+        SELECT Sname,YEAR(NOW())-YEAR(Sbirthday) AS Sage FROM students;
+    </select>
+
+    <select id="findQuestionNine" resultMap="Question9Map">
+        SELECT MIN(Sbirthday) AS MinBirthday , MAX(Sbirthday) AS MaxBirthday FROM students;
+    </select>
+
+    <select id="findQuestionTen" resultMap="BaseResultMap">
+        SELECT * FROM students ORDER BY sclass DESC,Sbirthday ASC;
+    </select>
+
+    <select id="findQuestionEleven" resultMap="Question11Map">
+        SELECT Teachers.Tname,Courses.Cname FROM Teachers INNER JOIN Courses ON(Teachers.Tno=Courses.Tno) WHERE Teachers.Tsex='男';
+    </select>
+
+    <select id="findQuestionTwelve" resultMap="ScoresMap">
+        SELECT * FROM Scores GROUP BY Cno HAVING Degree=Max(Degree);
+    </select>
+
+    <select id="findQuestionThirteen" resultMap="BaseResultMap">
+        SELECT s1.Sname FROM students AS s1 INNER JOIN students AS s2 ON(s1.Ssex=s2.Ssex) WHERE s2.Sname='李军';
+    </select>
+
+    <select id="findQuestionFourteen" resultMap="BaseResultMap">
+        SELECT s1.Sname FROM students AS s1 INNER JOIN students AS s2 ON(s1.Ssex=s2.Ssex AND s1.sclass=s2.sclass) WHERE s2.Sname='李军';
+    </select>
+
+    <select id="findQuestionFifteen" resultMap="ScoresMap">
+        SELECT * FROM Scores WHERE Sno IN ( SELECT Sno FROM students
+                                            WHERE Ssex='男') AND Cno IN ( SELECT Cno FROM Courses WHERE Cname='计算机导论');
+    </select>
+
+</mapper>
