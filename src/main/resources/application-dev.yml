@@ -1,3 +1,8 @@
+# コンテキストパス
+# server:
+#   servlet:
+#     context-path: /honest-info
+
 spring:
   datasource:
     username: user001
@@ -23,7 +28,7 @@ spring:
     cache: false
 
 server:
-  port: 8080
+  port: 8082
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
