@@ -1,3 +1,8 @@
+# コンテキストパス
+# server:
+#   servlet:
+#     context-path: /honest-info
+
 spring:
   datasource:
     username: user001
