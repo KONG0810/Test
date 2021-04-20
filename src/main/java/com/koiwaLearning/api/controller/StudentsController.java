@@ -57,15 +57,7 @@ public class StudentsController {
         return studentsService.insertStudents(students);
     }
 
-    // 更新
-    @RequestMapping(value = {"/students/update"}, method = RequestMethod.GET)
-    public int updateStudents() {
-        Students students = new Students();
-        students.setSno("123");
-        students.setSname("BBB");
-        students.setSclass("#B");
-        return studentsService.updateStudents(students);
-    }
+
 
     // 削除
     @RequestMapping(value = {"/students/delete"}, method = RequestMethod.GET)
