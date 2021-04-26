@@ -33,6 +33,12 @@ dependencies {
 	//Thymeleaf模板
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf:2.4.2")
 	compile("net.sourceforge.nekohtml:nekohtml:1.9.22")
+
+	//lombok配置
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 test {

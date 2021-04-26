@@ -11,11 +11,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     /**
+     * 主页路径
+     */
+    private static final String INDEX = "/honest/index";
+    // private static final String INDEX = "/index";
+
+    /**
      * 跳转
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
 
-        return new ModelAndView("/index","indexModel",model);
+        return new ModelAndView(INDEX, "indexModel", model);
     }
 }

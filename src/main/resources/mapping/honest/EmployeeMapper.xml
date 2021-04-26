@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koiwaLearning.api.mapper.honest.EmployeeMapper">
+
+    <resultMap id="BaseResultMap" type="com.koiwaLearning.api.mapper.honest.EmployeeMapper">
+        <result column="eId" jdbcType="VARCHAR" property="employeeId" />
+        <result column="Ename" jdbcType="VARCHAR" property="employeeName" />
+        <result column="gender" jdbcType="Integer" property="gender" />
+        <result column="adderss" jdbcType="VARCHAR" property="address" />
+        <result column="tel" jdbcType="VARCHAR" property="tel" />
+        <result column="Email" jdbcType="VARCHAR" property="Email" />
+        <result column="loginId" jdbcType="VARCHAR" property="loginId" />
+        <result column="pw" jdbcType="VARCHAR" property="password" />
+        <result column="authority" jdbcType="Integer" property="authority" />
+        <result column="deleteFlag" jdbcType="Integer" property="deleteFlag" />
+        <result column="createdAt" jdbcType="VARCHAR" property="createdAt" />
+    </resultMap>
+
+    <select id="getEmployeeList" resultMap="BaseResultMap">
+        SELECT * FROM employee;
+    </select>
+
+    <!-- <select id="getStudent" resultMap="StudentDetail" parameterType="string">
+        select * from students
+        where sno = #{studentId}
+    </select>
+
+    <insert id="insertStudents" parameterType="com.koiwaLearning.api.domain.Students">
+        INSERT INTO students (
+            sno,sname,ssex,sbirthday,sclass)
+        VALUES (
+                   #{sno},#{sname},#{ssex},#{sbirthday},#{sclass});
+    </insert>
+
+    <update id="updateStudents" parameterType="com.koiwaLearning.api.domain.Students">
+        UPDATE students
+        SET SNAME = #{sname},
+            SCLASS = #{sclass}
+        WHERE   sno = #{sno};
+    </update>
+
+    <delete id="deleteStudents" parameterType="String">
+        DELETE FROM students
+        WHERE sno = #{sno};
+    </delete> -->
+
+
+
+</mapper>
