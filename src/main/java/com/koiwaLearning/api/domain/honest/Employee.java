@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+// @Builder
 public class Employee implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  // private static final long serialVersionUID = 1L;
 
   private Integer employeeId;
   private String employeeName;
@@ -21,4 +21,9 @@ public class Employee implements Serializable {
   private Integer authority;
   private Integer deleteFlag;
   private String createdAt;
+  // private String skills;
+
+  public Employee() {
+  }
+
 }

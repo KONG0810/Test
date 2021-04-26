@@ -2,22 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koiwaLearning.api.mapper.honest.EmployeeMapper">
 
-    <resultMap id="BaseResultMap" type="com.koiwaLearning.api.mapper.honest.EmployeeMapper">
-        <result column="eId" jdbcType="VARCHAR" property="employeeId" />
+    <resultMap id="BaseResultMap" type="com.koiwaLearning.api.domain.honest.Employee">
+        <result column="eId" jdbcType="INTEGER" property="employeeId" />
         <result column="Ename" jdbcType="VARCHAR" property="employeeName" />
-        <result column="gender" jdbcType="Integer" property="gender" />
+        <result column="gender" jdbcType="TINYINT" property="gender" />
         <result column="adderss" jdbcType="VARCHAR" property="address" />
         <result column="tel" jdbcType="VARCHAR" property="tel" />
         <result column="Email" jdbcType="VARCHAR" property="Email" />
         <result column="loginId" jdbcType="VARCHAR" property="loginId" />
         <result column="pw" jdbcType="VARCHAR" property="password" />
-        <result column="authority" jdbcType="Integer" property="authority" />
-        <result column="deleteFlag" jdbcType="Integer" property="deleteFlag" />
+        <result column="authority" jdbcType="TINYINT" property="authority" />
+        <result column="deleteFlag" jdbcType="TINYINT" property="deleteFlag" />
         <result column="createdAt" jdbcType="VARCHAR" property="createdAt" />
     </resultMap>
 
     <select id="getEmployeeList" resultMap="BaseResultMap">
-        SELECT * FROM employee;
+        SELECT 
+            employee.employee_id as eId, 
+            employee.employee_name as Ename, 
+            employee.gender as gender, 
+            employee.address as address, 
+            employee.tel as tel, 
+            employee.mail as Email, 
+            employee.login_id as loginId, 
+            employee.password as pw, 
+            employee.authority as authority, 
+            employee.delete_flag as deleteFlag, 
+            employee.created_at as createdAt 
+        FROM EMPLOYEE;
     </select>
 
     <!-- <select id="getStudent" resultMap="StudentDetail" parameterType="string">

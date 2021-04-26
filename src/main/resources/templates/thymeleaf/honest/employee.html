@@ -6,16 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- BootstrapのCSS読み込み -->
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <!-- <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"> -->
+  <!-- <link href="../../../static/css/bootstrap.min.css" rel="stylesheet"> -->
   <!-- jQuery読み込み -->
-  <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+  <!-- <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script> -->
+  <!-- <script src="../../../static/js/jquery-3.5.1.slim.min.js"></script> -->
   <!-- BootstrapのJS読み込み -->
-  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-  <script th:src="js/employee.js"></script>
-  <title>会员管理</title>
-  <script>
-   
-  </script>
+  <!-- <script src="../../../static/js/bootstrap.bundle.min.js"></script> -->
+
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script th:src="@{/js/employee.js}"></script>
+  <title>title</title>
 
 </head>
 
@@ -23,7 +29,8 @@
   <!-- メイン画像 -->
   <div class="container">
     <!-- http://localhost:8088/honest-info/images/mainImg.jpg -->
-    <img th:src="@{/images/mainImg.jpg}" width="1110" height="145" alt="">
+    <!-- <img th:src="@{/images/mainImg.jpg}" width="1110" height="145" alt=""> -->
+    <img src="../../../static/images/mainImg.jpg" width="1110" height="145" alt="">
   </div>
 
   <div class="container">
@@ -56,14 +63,14 @@
       </thead>
       <tbody>
         <!-- 社員リスト繰り返し、ステータス変数(status)には、現在のループの状態に関する情報が格納される -->
-        <tr th:each="employee, status : ${employeeFormList}">
+        <tr th:each="employee, status : ${employeeModel.employeeList}">
           <th th:text="${status.count}"></th>
           <td th:text="${employee.employeeId}"></td>
           <td th:text="${employee.employeeName}"></td>
           <!-- 性別条件判断 -->
           <td th:text="${employee.gender == 0 ? '女' : '男'}"></td>
           <!-- スキル概要 -->
-          <td th:text="${employee.skills}"></td>
+          <td th:text="${employee.Email}"></td>
           <td class="text-right">
             <!-- パスパラメータとして、employeeIdを渡している -->
             <a th:href="@{/employee/{employeeId}/edit(employeeId=${employee.employeeId})}"
