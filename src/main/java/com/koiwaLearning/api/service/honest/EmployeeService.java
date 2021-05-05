@@ -18,4 +18,23 @@ public class EmployeeService {
     return EmployeeMapper.getEmployeeList();
   }
 
+  public Employee getEmployeeDetail(Integer eId) {
+    return EmployeeMapper.getEmployeeDetail(eId);
+  }
+
+  public void insertEmployee(Employee employee) {
+    EmployeeMapper.insertEmployee(employee);
+    return;
+  }
+
+  public void updateEmployee(Employee employee) {
+    EmployeeMapper.updateEmployee(employee);
+    return;
+  }
+
+  public void deleteEmployee(Integer eId) {
+    EmployeeMapper.deleteEmployee(eId);
+    return;
+  }
+
 }

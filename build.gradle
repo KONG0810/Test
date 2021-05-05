@@ -16,29 +16,32 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	//閰嶇疆mysql杩炴帴鍣�
+	//配置mysql连接器
 	compile 'mysql:mysql-connector-java'
 
-	//閰嶇疆mybatis 鏁版嵁婧�
+	//配置mybatis 数据源
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0")
 	testCompile('org.mybatis.spring.boot:mybatis-spring-boot-starter-test:1.3.0')
 
-	//浣跨敤 Controller 鐨勬椂鍊欓渶瑕佸紩鍏� web 鍖�
+	//使用 Controller 的时候需要引入 web 包
 	compile('org.springframework.boot:spring-boot-starter-web')
 
-	//spring batch绫诲簱
+	//spring batch类库
 	compile('org.springframework.boot:spring-boot-starter-batch')
 	testCompile('org.springframework.batch:spring-batch-test')
 
-	//Thymeleaf妯℃澘
+	//Thymeleaf模板
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf:2.4.2")
 	compile("net.sourceforge.nekohtml:nekohtml:1.9.22")
 
-	//lombok閰嶇疆
+	//lombok依赖
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+	//FastJson
+	implementation 'com.alibaba:fastjson:1.2.76'
 }
 
 test {

@@ -10,4 +10,12 @@ public interface EmployeeMapper {
 
   List<Employee> getEmployeeList();
 
+  Employee getEmployeeDetail(Integer eId);
+
+  int insertEmployee(Employee employee);
+
+  int updateEmployee(Employee employee);
+
+  int deleteEmployee(Integer eId);
+
 }

@@ -1,11 +1,14 @@
 package com.koiwaLearning.api.domain.honest;
 
 import java.io.Serializable;
+
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
+// @SuppressWarnings("serial")
 @Data
-// @Builder
+@Builder
 public class Employee implements Serializable {
 
   // private static final long serialVersionUID = 1L;
@@ -21,8 +24,9 @@ public class Employee implements Serializable {
   private Integer authority;
   private Integer deleteFlag;
   private String createdAt;
-  // private String skills;
+  private String skills;
 
+  @Tolerate
   public Employee() {
   }
 

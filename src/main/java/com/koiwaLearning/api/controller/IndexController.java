@@ -21,7 +21,6 @@ public class IndexController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
-
         return new ModelAndView(INDEX, "indexModel", model);
     }
 }

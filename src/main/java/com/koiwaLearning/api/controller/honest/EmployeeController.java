@@ -26,10 +26,8 @@ public class EmployeeController {
     /**
      * 跳转
      */
-    // @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
     @RequestMapping(value = { "/employee" }, method = RequestMethod.GET)
     public ModelAndView index(Model model) {
-        // public void index(Model model) {
 
         System.out.println("welcome to honest employeeController");
 
@@ -55,7 +53,6 @@ public class EmployeeController {
         // model.addAttribute("loginId", loginId);
         // model.addAttribute("employeeName", employeeName);
 
-        // model.addAttribute("honest", "honest");
         model.addAttribute("title", "会员管理");
         model.addAttribute("employeeList", employeeList);
         return new ModelAndView("honest/employee", "employeeModel", model);
