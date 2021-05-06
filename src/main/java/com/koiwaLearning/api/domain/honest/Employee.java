@@ -1,6 +1,7 @@
 package com.koiwaLearning.api.domain.honest;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import lombok.Builder;
 import lombok.Data;
@@ -18,13 +19,13 @@ public class Employee implements Serializable {
   private Integer gender;
   private String address;
   private String tel;
-  private String Email;
+  private String email;
   private String loginId;
   private String password;
   private Integer authority;
   private Integer deleteFlag;
   private String createdAt;
-  private String skills;
+  // private String skills;
 
   @Tolerate
   public Employee() {

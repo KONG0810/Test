@@ -53,7 +53,7 @@ public class EmployeeController {
         // model.addAttribute("loginId", loginId);
         // model.addAttribute("employeeName", employeeName);
 
-        model.addAttribute("title", "会员管理");
+        model.addAttribute("title", "管理");
         model.addAttribute("employeeList", employeeList);
         return new ModelAndView("honest/employee", "employeeModel", model);
     }

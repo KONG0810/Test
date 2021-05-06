@@ -8,7 +8,7 @@
         <result column="gender" jdbcType="TINYINT" property="gender" />
         <result column="address" jdbcType="VARCHAR" property="address" />
         <result column="tel" jdbcType="VARCHAR" property="tel" />
-        <result column="Email" jdbcType="VARCHAR" property="Email" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="loginId" jdbcType="VARCHAR" property="loginId" />
         <result column="pw" jdbcType="VARCHAR" property="password" />
         <result column="authority" jdbcType="TINYINT" property="authority" />
@@ -16,65 +16,58 @@
         <result column="createdAt" jdbcType="VARCHAR" property="createdAt" />
     </resultMap>
 
-    <select id="getEmployeeList" resultMap="BaseResultMap">
+    <sql id="selectEmployee">
         SELECT 
-            employee.employee_id as eId, 
-            employee.employee_name as eName, 
-            employee.gender as gender, 
-            employee.address as address, 
-            employee.tel as tel, 
-            employee.mail as Email, 
-            employee.login_id as loginId, 
-            employee.password as pw, 
-            employee.authority as authority, 
-            employee.delete_flag as deleteFlag, 
-            employee.created_at as createdAt 
-        FROM EMPLOYEE;
+            employee_id as eId, 
+            employee_name as eName, 
+            gender as gender, 
+            address as address, 
+            tel as tel, 
+            mail as email, 
+            login_id as loginId, 
+            password as pw, 
+            authority as authority, 
+            delete_flag as deleteFlag, 
+            created_at as createdAt 
+        FROM EMPLOYEE
+    </sql>
+
+    <select id="getEmployeeList" resultMap="BaseResultMap">
+        <include refid="selectEmployee"></include>
     </select>
 
     <select id="getEmployeeDetail" resultMap="BaseResultMap" parameterType="INTEGER">
-        SELECT 
-            employee.employee_id as eId, 
-            employee.employee_name as eName, 
-            employee.gender as gender, 
-            employee.address as address, 
-            employee.tel as tel, 
-            employee.mail as Email, 
-            employee.login_id as loginId, 
-            employee.password as pw, 
-            employee.authority as authority, 
-            employee.delete_flag as deleteFlag, 
-            employee.created_at as createdAt 
-        FROM EMPLOYEE WHERE employee_id = #{employeeId};
+        <include refid="selectEmployee"></include> 
+        WHERE employee_id = #{employeeId};
     </select>
 
     <delete id="deleteEmployee" parameterType="integer">
         DELETE FROM employee
-        WHERE employee_id = #{employeeId}
+        WHERE employee_id = #{employeeId};
     </delete>
 
     <insert id="insertEmployee" parameterType="com.koiwaLearning.api.domain.honest.Employee">
         INSERT INTO EMPLOYEE (
             employee_id,employee_name,gender,address,tel,mail,login_id,password,authority,delete_flag,created_at)
         VALUES (
-            #{employeeId},#{employeeName},#{gender},#{address},#{tel},#{Email},#{loginId},#{password},#{authority},#{deleteFlag},#{createdAt});
+            #{employeeId},#{employeeName},#{gender},#{address},#{tel},#{email},#{loginId},#{password},#{authority},#{deleteFlag},#{createdAt});
     </insert>
 
     <update id="updateEmployee" parameterType="com.koiwaLearning.api.domain.honest.Employee">
         UPDATE EMPLOYEE
         SET
-            employee.employee_id = #{employeeId}, 
-            employee.employee_name = #{employeeName}, 
-            employee.gender = #{gender}, 
-            employee.address = #{address}, 
-            employee.tel = #{tel}, 
-            employee.mail = #{Email}, 
-            employee.login_id = #{loginId}, 
-            employee.password = #{password}, 
-            employee.authority = #{authority}, 
-            employee.delete_flag = #{deleteFlag}, 
-            employee.created_at = #{createdAt}
-        WHERE employee.employee_id = #{employeeId};
+            employee_id = #{employeeId}, 
+            employee_name = #{employeeName}, 
+            gender = #{gender}, 
+            address = #{address}, 
+            tel = #{tel}, 
+            mail = #{email}, 
+            login_id = #{loginId}, 
+            password = #{password}, 
+            authority = #{authority}, 
+            delete_flag = #{deleteFlag}, 
+            created_at = #{createdAt}
+        WHERE employee_id = #{employeeId};
     </update>
 
 </mapper>
