@@ -1,6 +1,5 @@
 package com.koiwaLearning.api.mapper;
 
-import com.koiwaLearning.api.domain.Question9;
 import com.koiwaLearning.api.domain.StudentDetail;
 import com.koiwaLearning.api.domain.Students;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,6 @@ public interface StudentsMapper {
 
     // 根据id查询单个学生
     StudentDetail getStudent(String studentId);
-
 
     // 追加
     int insertStudents(Students students);

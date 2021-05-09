@@ -19,13 +19,13 @@ import java.util.List;
 public class CoursesController {
 
     @Autowired
-    private CoursesService coursesService;
+    private CoursesService CoursesService;
 
 
     //検索
     @RequestMapping(value = {"/getCourses"}, method = RequestMethod.GET)
     public ModelAndView getCourses(Model model) {
-        model.addAttribute("coursesList",coursesService.getCourses());
+        model.addAttribute("coursesList",CoursesService.getCourses());
         model.addAttribute("title", "Courses信息");
         return new ModelAndView("courses/coursesSelect","coursesModel",model);
     }
@@ -36,7 +36,7 @@ public class CoursesController {
     @RequestMapping(value = "/getCourse", method = RequestMethod.GET)
     public CourseDetail getCourse(@RequestParam("courseId") String courseId) {
 
-        CourseDetail course = coursesService.getCourse(courseId);
+        CourseDetail course = CoursesService.getCourse(courseId);
 
         return course;
     }
@@ -48,7 +48,7 @@ public class CoursesController {
         courses.setCno("3-101");
         courses.setCname("CCCC");
         courses.setTno("111");
-        return coursesService.insertCourses(courses);
+        return CoursesService.insertCourses(courses);
     }
 
     //更新
@@ -58,14 +58,14 @@ public class CoursesController {
         courses.setCno("3-101");
         courses.setCname("DDDDDDDD");
         courses.setTno("120");
-        return coursesService.updateCourses(courses);
+        return CoursesService.updateCourses(courses);
     }
 
     //削除
     @RequestMapping(value = {"/courses/delete"},method = RequestMethod.GET)
     public int deleteCourses(){
         String cno = "3-101";
-        return coursesService.deleteCourses(cno);
+        return CoursesService.deleteCourses(cno);
     }
 
 */
