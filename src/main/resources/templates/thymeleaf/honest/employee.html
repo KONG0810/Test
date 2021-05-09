@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- BootstrapのCSS読み込み -->
+  <!-- <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <!-- jQuery読み込み -->
+  <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+  <!-- BootstrapのJS読み込み -->
+  <!-- <script th:src="@{/js/bootstrap.bundle.min.js}"></script> -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous">
+  </script>
+  <!-- 本地文件读取 -->
+  <!-- <script th:src="@{/honest/honestjs/employee.js}"></script> -->
+  <title>title</title>
+
+</head>
+
+<body>
+  <!-- メイン画像 -->
+  <div class="container">
+    <img th:src="@{/images/mainImg.jpg}" width="1110" height="145" alt="">
+  </div>
+
+  <div class="container">
+    <h3 class="text-center">社員一覧</h3>
+    <br>
+    <div class="row justify-content-between">
+      <!-- 戻る -->
+      <div class="col-4">
+        <p class="text-left"><a
+            th:href="@{/top/back/{loginId}/{employeeName}(loginId=${loginId},employeeName=${employeeName})}"
+            class="btn btn-default">戻る</a></p>
+      </div>
+      <!-- 新規 -->
+      <div class="col-4">
+        <p class="text-right"><a th:href="@{/employee/addEmployee}" class="btn btn-primary">新規登録</a></p>
+      </div>
+    </div>
+
+    <!-- 表示内容 -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col-sm-1">No.</th>
+          <th scope="col-sm-1">社員ID</th>
+          <th scope="col-sm-1">名前</th>
+          <th scope="col-sm-1">性別</th>
+          <th scope="col-sm-8">技術</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 社員リスト繰り返し、ステータス変数(status)には、現在のループの状態に関する情報が格納される -->
+        <tr th:each="employee, status : ${employeeModel.employeeList}">
+          <th th:text="${status.count}"></th>
+          <td th:text="${employee.employeeId}"></td>
+          <td th:text="${employee.employeeName}"></td>
+          <!-- 性別条件判断 -->
+          <td th:text="${employee.gender == 0 ? '女' : '男'}"></td>
+          <!-- スキル概要 -->
+          <td th:text="${employee.address}"></td>
+          <td class="text-right">
+            <!-- パスパラメータとして、employeeIdを渡している -->
+            <a th:href="@{/employee/{employeeId}/edit(employeeId=${employee.employeeId})}"
+              class="btn btn-primary btn-sm">編集</a>
+            <button class="btn btn-primary btn-sm delete" th:name="${employee.employeeId}" data-toggle="modal"
+              data-target="#deleteModal">削除</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+          </td>
+          <td>
+            <span id="to_top" class="btn btn-default">トップへ</span>
+          </td>
+        </tr>
+      </tbody>
+
+      <!-- TODO pegging -->
+    </table>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">DELETE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          删除后将不可恢复，确定删除？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary m_close" data-dismiss="modal">close</button>
+          <button type="button" class="btn btn-primary m_del">删除</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<script>
+  $(document).ready(function () {
+    const delUrl = "/employee/delete";
+    let eId = null;
+
+    $(".delete").click(function (e) {
+      eId = $(e.target).attr("name");
+    });
+
+    $(".m_close").click(function (e) {
+      console.log("close");
+      eId = null;
+    });
+    $(".m_del").click(function (e) {
+      console.log("del");
+      del(delUrl, parseInt(eId));
+      $('#deleteModal').modal('hide');
+    });
+    $('#deleteModal').on('hide.bs.modal', function (e) {
+      eId = null;
+    });
+
+    function del(url, id) {
+      console.log(url);
+      let data = id;
+      $.ajax({
+        url: url,
+        type: 'delete',
+        data: JSON.stringify(data),
+        // dataType: 'json',
+        contentType: "application/json;charset=utf-8",
+        success: function (xhr, status) {
+          console.log("success");
+          console.log(xhr);
+        },
+        error: function (xhr, status) {
+          console.log("error");
+          console.log(xhr);
+        }
+      });
+    };
+
+  });
+</script>
+
+</html>

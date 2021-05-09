@@ -1,8 +1,13 @@
+# コンテキストパス
+# server:
+#   servlet:
+#     context-path: /honest-info
+
 spring:
   datasource:
-    username: user001
-    password: Kk802311
-    url: jdbc:mysql://localhost:3306/kong?serverTimezone=UTC
+    username: root
+    password: qwermnbv135
+    url: jdbc:mysql://localhost:3306/db1?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
   batch:
     initialize-schema: always
@@ -26,8 +31,8 @@ server:
   port: 8080
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.koiwaLearning.api.domain
+  mapper-locations: classpath:mapping/honest/*Mapper.xml, classpath:mapping/*Mapper.xml
+  type-aliases-package: com.koiwaLearning.api.domain.honest, com.koiwaLearning.api.domain
 
 logging:
   level:
